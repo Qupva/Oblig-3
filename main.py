@@ -36,7 +36,7 @@ class game():
         pass
 
     def handle_draw(self):
-        self.screen.fill((32,32,40))
+        self.screen.fill((40,32,40))
 
 
         pygame.display.flip()
