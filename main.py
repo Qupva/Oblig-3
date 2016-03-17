@@ -3,8 +3,8 @@
 import pygame
 import Vector2D
 import LocalClient
+import config as c
 
-from config import *
 from player import *
 from weapons import *
 
@@ -12,8 +12,10 @@ from weapons import *
 class game():
     def __init__(self):
         pygame.init()
+        self.screen = pygame.display.set_mode((c.SCREEN_X, c.SCREEN_Y))
 
-        self.screen = pygame.display.set_mode((SCREEN_X, SCREEN_Y))
+        self.player1 = player(self, 1, (c.GAME_SCALE * 2), (c.SCREEN_Y // 2))
+        self.player2 = player(self, 2, (c.SCREEN_X - c.GAME_SCALE * 2), (c.SCREEN_Y // 2))
 
     def run(self):
         self.clock = pygame.time.Clock()
@@ -33,10 +35,12 @@ class game():
                 exit()
 
     def handle_move(self):
-        pass
+        self.player1.move()
 
     def handle_draw(self):
         self.screen.fill((40,32,40))
+
+        self.player1.draw(self.screen)
 
 
         pygame.display.flip()

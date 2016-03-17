@@ -1,4 +1,5 @@
 
+import pygame
 from main import *
 
 SCREEN_X, SCREEN_Y = 1200, 720
