@@ -14,8 +14,13 @@ class game():
         pygame.init()
         self.screen = pygame.display.set_mode((c.SCREEN_X, c.SCREEN_Y))
 
+        self.player_list = pygame.sprite.Group()
+
         self.player1 = player(self, 1, (c.GAME_SCALE * 2), (c.SCREEN_Y // 2))
-        self.player2 = player(self, 2, (c.SCREEN_X - c.GAME_SCALE * 2), (c.SCREEN_Y // 2))
+        self.player2 = player(self, 2, (c.SCREEN_X - c.GAME_SCALE * 5), (c.SCREEN_Y // 2))
+
+        self.player_list.add(self.player1)
+        self.player_list.add(self.player2)
 
     def run(self):
         self.clock = pygame.time.Clock()
@@ -35,12 +40,14 @@ class game():
                 exit()
 
     def handle_move(self):
-        self.player1.move()
+        for p in self.player_list:
+            p.move()
 
     def handle_draw(self):
         self.screen.fill((40,32,40))
 
-        self.player1.draw(self.screen)
+        for p in self.player_list:
+            p.draw(self.screen)
 
 
         pygame.display.flip()

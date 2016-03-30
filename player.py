@@ -37,9 +37,9 @@ class player(pygame.sprite.Sprite):
         self.rotation = 0
 
         
-
     def move(self):
         self.rotation += 1
+
 
     def draw(self, screen):
         img = pygame.transform.rotate(self.image, self.rotation)
