@@ -9,6 +9,8 @@ GRAVITY = 10
 MOVE_SPEED = 10
 TURN_SPEED = 10
 
+PLAYER_SIZE = GAME_SCALE * 4
+
 P1_FNAME = "img/p1.png"
 P1_L = pygame.K_a
 P1_R = pygame.K_d

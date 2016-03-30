@@ -11,22 +11,26 @@ class player(pygame.sprite.Sprite):
     def __init__(self, game, playernum, x, y):
         super().__init__()
 
-        self.width = c.GAME_SCALE * 5
-        self.height = c.GAME_SCALE * 5
+        self.width = c.PLAYER_SIZE
+        self.height = c.PLAYER_SIZE
 
         if playernum == 1:
             self.image = pygame.image.load(c.P1_FNAME).convert_alpha()
+            """
             self.left = c.P1_L
             self.right = c.P1_R
             self.shoot = c.P1_S
             self.drive = c.P1_D
+            """
 
         elif playernum == 2:
             self.image = pygame.image.load(c.P2_FNAME).convert_alpha()
+            """
             self.left = c.P2_L
             self.right = c.P2_R
             self.shoot = c.P2_S
             self.drive = c.P2_D
+            """
 
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
 
@@ -38,7 +42,7 @@ class player(pygame.sprite.Sprite):
 
         
     def move(self):
-        self.rotation += 1
+        pass
 
 
     def draw(self, screen):

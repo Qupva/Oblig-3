@@ -29,9 +29,15 @@ class game():
             self.time_passed = self.clock.tick(60)
             self.time_passed_seconds = self.time_passed / 1000.0
 
+            self.player_input()
+
             self.handle_event()
             self.handle_move()
             self.handle_draw()
+
+    def player_input(self):
+        pass
+
 
     def handle_event(self):
         events = pygame.event.get()
@@ -39,9 +45,11 @@ class game():
             if event.type == pygame.QUIT:
                 exit()
 
+
     def handle_move(self):
         for p in self.player_list:
             p.move()
+
 
     def handle_draw(self):
         self.screen.fill((40,32,40))
