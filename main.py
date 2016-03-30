@@ -36,7 +36,29 @@ class game():
             self.handle_draw()
 
     def player_input(self):
-        pass
+        if pygame.key.get_pressed()[c.P1_L]:
+            self.player1.rotation += 1
+
+        if pygame.key.get_pressed()[c.P1_R]:
+            self.player1.rotation -= 1
+
+        if pygame.key.get_pressed()[c.P1_D]:
+            pass
+
+        if pygame.key.get_pressed()[c.P1_D]:
+            pass
+
+        if pygame.key.get_pressed()[c.P2_L]:
+            self.player2.rotation += 1
+
+        if pygame.key.get_pressed()[c.P2_R]:
+            self.player2.rotation -= 1
+
+        if pygame.key.get_pressed()[c.P2_D]:
+            pass
+
+        if pygame.key.get_pressed()[c.P2_D]:
+            pass
 
 
     def handle_event(self):
