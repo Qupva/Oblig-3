@@ -80,6 +80,12 @@ class Vector2D(object):
     def copy(self):
         """ Returns a copy of the vector. """
         return Vector2D(self.x, self.y)
+
+    def convert(self, b):
+        """ Takes an int b and converts it from degrees to x,y coordinates """
+        angle = math.radians(b + 180)
+        self.x = math.sin(angle)
+        self.y = math.cos(angle)
         
         
 def intersect_rectangle_circle(rec_pos, sx, sy, circle_pos, circle_radius, circle_speed):

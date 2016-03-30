@@ -42,10 +42,12 @@ class player(pygame.sprite.Sprite):
 
         
     def move(self):
-        pass
+        self.rotation = self.rotation % 360
+        self.dir.convert(self.rotation)
 
 
     def draw(self, screen):
         img = pygame.transform.rotate(self.image, self.rotation)
 
         screen.blit(img, (self.pos.x, self.pos.y))
+        #pygame.draw.line(screen, (0,240,0), (self.pos.x, self.pos.y), (self.pos.x + (self.dir.x * 10), self.pos.y + (self.dir.y * 10)), 3)

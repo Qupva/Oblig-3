@@ -36,6 +36,8 @@ class game():
             self.handle_draw()
 
     def player_input(self):
+    
+        """ Player 1 input """
         if pygame.key.get_pressed()[c.P1_L]:
             self.player1.rotation += 1
 
@@ -48,6 +50,7 @@ class game():
         if pygame.key.get_pressed()[c.P1_D]:
             pass
 
+        """ Player 2 input """
         if pygame.key.get_pressed()[c.P2_L]:
             self.player2.rotation += 1
 
