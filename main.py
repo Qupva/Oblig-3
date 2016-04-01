@@ -59,7 +59,8 @@ class game():
             self.player2.rotation -= c.TURN_SPEED
 
         if pygame.key.get_pressed()[c.P2_D]:
-            pass
+            self.player2.vel.x += self.player2.dir.x * c.MOVE_SPEED
+            self.player2.vel.y += self.player2.dir.y * c.MOVE_SPEED
 
         if pygame.key.get_pressed()[c.P2_S]:
             pass
