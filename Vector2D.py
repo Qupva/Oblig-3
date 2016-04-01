@@ -84,6 +84,7 @@ class Vector2D(object):
     def convert(self, b):
         """ Takes an int b and converts it from degrees to x,y coordinates """
         angle = math.radians(b + 180)
+        #self = Vector2D(math.sin(angle), math.cos(angle))
         self.x = math.sin(angle)
         self.y = math.cos(angle)
         

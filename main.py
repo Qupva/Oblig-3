@@ -39,28 +39,29 @@ class game():
     
         """ Player 1 input """
         if pygame.key.get_pressed()[c.P1_L]:
-            self.player1.rotation += 1
+            self.player1.rotation += c.TURN_SPEED
 
         if pygame.key.get_pressed()[c.P1_R]:
-            self.player1.rotation -= 1
+            self.player1.rotation -= c.TURN_SPEED
 
         if pygame.key.get_pressed()[c.P1_D]:
-            pass
+            self.player1.vel.x += self.player1.dir.x * c.MOVE_SPEED
+            self.player1.vel.y += self.player1.dir.y * c.MOVE_SPEED
 
-        if pygame.key.get_pressed()[c.P1_D]:
+        if pygame.key.get_pressed()[c.P1_S]:
             pass
 
         """ Player 2 input """
         if pygame.key.get_pressed()[c.P2_L]:
-            self.player2.rotation += 1
+            self.player2.rotation += c.TURN_SPEED
 
         if pygame.key.get_pressed()[c.P2_R]:
-            self.player2.rotation -= 1
+            self.player2.rotation -= c.TURN_SPEED
 
         if pygame.key.get_pressed()[c.P2_D]:
             pass
 
-        if pygame.key.get_pressed()[c.P2_D]:
+        if pygame.key.get_pressed()[c.P2_S]:
             pass
 
 
@@ -77,7 +78,7 @@ class game():
 
 
     def handle_draw(self):
-        self.screen.fill((40,32,40))
+        self.screen.fill((100,90,100))
 
         for p in self.player_list:
             p.draw(self.screen)

@@ -16,34 +16,47 @@ class player(pygame.sprite.Sprite):
 
         if playernum == 1:
             self.image = pygame.image.load(c.P1_FNAME).convert_alpha()
-            """
-            self.left = c.P1_L
-            self.right = c.P1_R
-            self.shoot = c.P1_S
-            self.drive = c.P1_D
-            """
 
         elif playernum == 2:
             self.image = pygame.image.load(c.P2_FNAME).convert_alpha()
-            """
-            self.left = c.P2_L
-            self.right = c.P2_R
-            self.shoot = c.P2_S
-            self.drive = c.P2_D
-            """
 
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
 
         self.pos = Vector2D.Vector2D(x, y)
         self.dir = Vector2D.Vector2D(0, -1).normalized()
         self.vel = Vector2D.Vector2D(0, 0)
+        self.grav_dir = Vector2D.Vector2D(0, 1).normalized()
 
         self.rotation = 0
 
         
     def move(self):
+        vector = Vector2D.Vector2D(0, 0)
+
         self.rotation = self.rotation % 360
         self.dir.convert(self.rotation)
+
+        self.vel += self.grav_dir * c.GRAVITY
+
+        if self.vel.magnitude() <= 0:
+            self.vel.x = 0
+            self.vel.y = 0
+        else:
+            self.vel.x -= self.vel.x / 20
+            self.vel.y -= self.vel.y / 10
+
+
+        
+
+        vector = self.vel
+
+        if vector.magnitude() > c.MAX_SPEED:
+            vector = vector.normalized() * c.MAX_SPEED
+
+        self.pos += vector
+
+        self.pos.x = self.pos.x % c.SCREEN_X
+        self.pos.y = self.pos.y % c.SCREEN_Y
 
 
     def draw(self, screen):
