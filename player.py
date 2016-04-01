@@ -42,11 +42,8 @@ class player(pygame.sprite.Sprite):
             self.vel.x = 0
             self.vel.y = 0
         else:
-            self.vel.x -= self.vel.x / 20
-            self.vel.y -= self.vel.y / 10
-
-
-        
+            self.vel.x -= self.vel.x / c.AIR_RESISTANCE
+            self.vel.y -= self.vel.y / c.AIR_RESISTANCE
 
         vector = self.vel
 
