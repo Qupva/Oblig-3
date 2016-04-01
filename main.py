@@ -16,8 +16,8 @@ class game():
 
         self.player_list = pygame.sprite.Group()
 
-        self.player1 = player(self, 1, (c.GAME_SCALE * 2), (c.SCREEN_Y // 2))
-        self.player2 = player(self, 2, (c.SCREEN_X - c.GAME_SCALE * 5), (c.SCREEN_Y // 2))
+        self.player1 = player1(self, (c.GAME_SCALE * 2), (c.SCREEN_Y // 2))
+        self.player2 = player2(self, (c.SCREEN_X - c.GAME_SCALE * 5), (c.SCREEN_Y // 2))
 
         self.player_list.add(self.player1)
         self.player_list.add(self.player2)

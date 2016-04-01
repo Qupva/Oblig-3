@@ -7,18 +7,14 @@ from main import *
 from weapons import *
 
 
-class player(pygame.sprite.Sprite):
-    def __init__(self, game, playernum, x, y):
+class player1(pygame.sprite.Sprite):
+    def __init__(self, game, x, y):
         super().__init__()
 
         self.width = c.PLAYER_SIZE
         self.height = c.PLAYER_SIZE
 
-        if playernum == 1:
-            self.image = pygame.image.load(c.P1_FNAME).convert_alpha()
-
-        elif playernum == 2:
-            self.image = pygame.image.load(c.P2_FNAME).convert_alpha()
+        self.image = pygame.image.load(c.P1_FNAME).convert_alpha()
 
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
 
@@ -34,7 +30,7 @@ class player(pygame.sprite.Sprite):
         vector = Vector2D.Vector2D(0, 0)
 
         self.rotation = self.rotation % 360
-        self.dir.convert(self.rotation)
+        self.dir = self.dir.convert(self.rotation)
 
         self.vel += self.grav_dir * c.GRAVITY
 
@@ -60,4 +56,12 @@ class player(pygame.sprite.Sprite):
         img = pygame.transform.rotate(self.image, self.rotation)
 
         screen.blit(img, (self.pos.x, self.pos.y))
-        #pygame.draw.line(screen, (0,240,0), (self.pos.x, self.pos.y), (self.pos.x + (self.dir.x * 10), self.pos.y + (self.dir.y * 10)), 3)
+
+
+class player2(player1):
+    def __init__(self, game, x, y):
+
+        super().__init__(game, x, y)
+
+        self.image = pygame.image.load(c.P2_FNAME).convert_alpha()
+        self.image = pygame.transform.scale(self.image, (self.width, self.height))
