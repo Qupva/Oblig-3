@@ -25,7 +25,7 @@ class player1(pygame.sprite.Sprite):
         self.rect = self.img.get_rect()
         self.rect = self.rect.move(self.pos.x, self.pos.y)
 
-        self.bullet_timer = 0
+        self.bullet_timer = c.FIRE_RATE
 
         self.weapon = weapon()
 
@@ -60,6 +60,7 @@ class player1(pygame.sprite.Sprite):
         self.rect.y = self.rect.y % c.SCREEN_Y
 
         self.image = pygame.transform.rotate(self.img, self.rotation)
+        self.rect = self.image.get_rect(center = self.rect.center)
 
 
 

@@ -14,6 +14,8 @@ class game():
         pygame.init()
         self.screen = pygame.display.set_mode((c.SCREEN_X, c.SCREEN_Y))
 
+        self.time = 1
+
         self.player_list = pygame.sprite.Group()
         self.bullet_list = pygame.sprite.Group()
 
@@ -30,10 +32,12 @@ class game():
             self.time_passed = self.clock.tick(60)
             self.time_passed_seconds = self.time_passed / 1000.0
 
-            self.player_input()
-
             self.handle_event()
-            self.handle_move()
+
+            if self.time:
+                self.player_input()
+                self.handle_move()
+
             self.handle_draw()
 
     def player_input(self):
@@ -46,7 +50,7 @@ class game():
             self.player1.rotation -= c.TURN_SPEED
 
         if pygame.key.get_pressed()[c.P1_D]:
-            self.player1.vel.x += self.player1.dir.x * c.MOVE_SPEED * 0.9
+            self.player1.vel.x += self.player1.dir.x * c.MOVE_SPEED * 0.6
             self.player1.vel.y += self.player1.dir.y * c.MOVE_SPEED
 
         if pygame.key.get_pressed()[c.P1_S]:
@@ -80,6 +84,20 @@ class game():
         for event in events:
             if event.type == pygame.QUIT:
                 exit()
+
+        if pygame.key.get_pressed()[c.TIME_TOGGLE]:
+            if self.time == 1:
+                self.time = 0
+            else:
+                self.time = 1
+
+        for player in self.player_list:
+            if pygame.sprite.spritecollideany(player, self.bullet_list):
+                obj = pygame.sprite.spritecollideany(player, self.bullet_list)
+                obj.on_hit()
+                player.health -= 1
+            if not player.health:
+                player.kill()
 
 
     def handle_move(self):

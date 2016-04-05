@@ -5,6 +5,7 @@ from main import *
 P1_FNAME = "img/p1.png"
 P2_FNAME = "img/p2.png"
 BULLET_FNAME = "img/bullet.png"
+HEART_FNAME = "ing/heart.png"
 
 SCREEN_X, SCREEN_Y = 1200, 720
 GAME_SCALE = SCREEN_X // 100
@@ -17,10 +18,13 @@ AIR_RESISTANCE = 10
 
 FIRE_RATE = 0.2 # delay (in secounds) between shots
 BULLET_SPEED = 1
+BULLET_TIME = 1.0
 
 PLAYER_SIZE = GAME_SCALE * 4
 BULLET_SIZE_X = GAME_SCALE // 2
 BULLET_SIZE_Y = BULLET_SIZE_X * 3
+
+TIME_TOGGLE = pygame.K_SPACE
 
 """ Image and keybinds for player 1 """
 # Key to turn player left
