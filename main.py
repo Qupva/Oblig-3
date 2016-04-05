@@ -15,6 +15,7 @@ class game():
         self.screen = pygame.display.set_mode((c.SCREEN_X, c.SCREEN_Y))
 
         self.player_list = pygame.sprite.Group()
+        self.bullet_list = pygame.sprite.Group()
 
         self.player1 = player1(self, (c.GAME_SCALE * 2), (c.SCREEN_Y // 2))
         self.player2 = player2(self, (c.SCREEN_X - c.GAME_SCALE * 5), (c.SCREEN_Y // 2))
@@ -49,7 +50,11 @@ class game():
             self.player1.vel.y += self.player1.dir.y * c.MOVE_SPEED
 
         if pygame.key.get_pressed()[c.P1_S]:
-            pass
+            if self.player1.bullet_timer >= c.FIRE_RATE:
+                self.player1.weapon.fire(self, self.player1)
+                self.player1.bullet_timer = 0
+            else:
+                self.player1.bullet_timer += self.time_passed_seconds
 
         """ Player 2 input """
         if pygame.key.get_pressed()[c.P2_L]:
@@ -63,7 +68,11 @@ class game():
             self.player2.vel.y += self.player2.dir.y * c.MOVE_SPEED
 
         if pygame.key.get_pressed()[c.P2_S]:
-            pass
+            if self.player2.bullet_timer >= c.FIRE_RATE:
+                self.player2.weapon.fire(self, self.player2)
+                self.player2.bullet_timer = 0
+            else:
+                self.player2.bullet_timer += self.time_passed_seconds
 
 
     def handle_event(self):
@@ -74,17 +83,19 @@ class game():
 
 
     def handle_move(self):
+
         for p in self.player_list:
             p.move()
+
+        for b in self.bullet_list:
+            b.move()
 
 
     def handle_draw(self):
         self.screen.fill((100,90,100))
 
         self.player_list.draw(self.screen)
-        #for p in self.player_list:
-        #    p.draw(self.screen)
-
+        self.bullet_list.draw(self.screen)
 
         pygame.display.flip()
 
