@@ -14,15 +14,15 @@ class player1(pygame.sprite.Sprite):
         self.width = c.PLAYER_SIZE
         self.height = c.PLAYER_SIZE
 
-        self.image = pygame.image.load(c.P1_FNAME).convert_alpha()
+        tmp_img = pygame.image.load(c.P1_FNAME).convert_alpha()
 
-        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+        self.img = pygame.transform.scale(tmp_img, (self.width, self.height))
 
         self.pos = Vector2D.Vector2D(x, y)
         self.dir = Vector2D.Vector2D(0, -1).normalized()
         self.vel = Vector2D.Vector2D(0, 0)
         self.grav_dir = Vector2D.Vector2D(0, 1).normalized()
-        self.rect = self.image.get_rect()
+        self.rect = self.img.get_rect()
         self.rect = self.rect.move(self.pos.x, self.pos.y)
 
         self.rotation = 0
@@ -55,17 +55,14 @@ class player1(pygame.sprite.Sprite):
         self.rect.x = self.rect.x % c.SCREEN_X
         self.rect.y = self.rect.y % c.SCREEN_Y
 
-"""
-    def draw(self, screen):
-        img = pygame.transform.rotate(self.image, self.rotation)
+        self.image = pygame.transform.rotate(self.img, self.rotation)
 
-        screen.blit(img, (self.pos.x, self.pos.y))
-"""
+
 
 class player2(player1):
     def __init__(self, game, x, y):
 
         super().__init__(game, x, y)
 
-        self.image = pygame.image.load(c.P2_FNAME).convert_alpha()
-        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+        tmp_img = pygame.image.load(c.P2_FNAME).convert_alpha()
+        self.img = pygame.transform.scale(tmp_img, (self.width, self.height))
