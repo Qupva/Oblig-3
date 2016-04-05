@@ -110,7 +110,7 @@ class game():
 
 
     def handle_draw(self):
-        self.screen.fill((100,90,100))
+        self.screen.fill((c.BG_COLOR))
 
 
         self.bullet_list.draw(self.screen)

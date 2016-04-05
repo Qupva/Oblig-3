@@ -6,8 +6,11 @@ P1_FNAME = "img/p1.png"
 P2_FNAME = "img/p2.png"
 BULLET_FNAME = "img/bullet.png"
 HEART_FNAME = "ing/heart.png"
+P1_TXT = "img/player_1_text.png"
+P2_TXT = "img/player_2_text.png"
 
 SCREEN_X, SCREEN_Y = 1200, 720
+BG_COLOR = 40,32,40
 GAME_SCALE = SCREEN_X // 100
 
 GRAVITY = 0.5
