@@ -22,6 +22,8 @@ class player1(pygame.sprite.Sprite):
         self.dir = Vector2D.Vector2D(0, -1).normalized()
         self.vel = Vector2D.Vector2D(0, 0)
         self.grav_dir = Vector2D.Vector2D(0, 1).normalized()
+        self.rect = self.image.get_rect()
+        self.rect = self.rect.move(self.pos.x, self.pos.y)
 
         self.rotation = 0
 
@@ -46,17 +48,19 @@ class player1(pygame.sprite.Sprite):
         if vector.magnitude() > c.MAX_SPEED:
             vector = vector.normalized() * c.MAX_SPEED
 
-        self.pos += vector
+        self.pos = vector
 
-        self.pos.x = self.pos.x % c.SCREEN_X
-        self.pos.y = self.pos.y % c.SCREEN_Y
+        self.rect = self.rect.move(self.pos.x, self.pos.y)
 
+        self.rect.x = self.rect.x % c.SCREEN_X
+        self.rect.y = self.rect.y % c.SCREEN_Y
 
+"""
     def draw(self, screen):
         img = pygame.transform.rotate(self.image, self.rotation)
 
         screen.blit(img, (self.pos.x, self.pos.y))
-
+"""
 
 class player2(player1):
     def __init__(self, game, x, y):

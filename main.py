@@ -81,8 +81,9 @@ class game():
     def handle_draw(self):
         self.screen.fill((100,90,100))
 
-        for p in self.player_list:
-            p.draw(self.screen)
+        self.player_list.draw(self.screen)
+        #for p in self.player_list:
+        #    p.draw(self.screen)
 
 
         pygame.display.flip()
