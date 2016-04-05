@@ -85,8 +85,6 @@ class Vector2D(object):
         """ Takes an int b and converts it from degrees to x,y coordinates """
         angle = math.radians(b + 180)
         return Vector2D(math.sin(angle), math.cos(angle))
-        #self.x = math.sin(angle)
-        #self.y = math.cos(angle)
         
         
 def intersect_rectangle_circle(rec_pos, sx, sy, circle_pos, circle_radius, circle_speed):

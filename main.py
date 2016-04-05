@@ -64,7 +64,7 @@ class game():
             self.player2.rotation -= c.TURN_SPEED
 
         if pygame.key.get_pressed()[c.P2_D]:
-            self.player2.vel.x += self.player2.dir.x * c.MOVE_SPEED * 0.9
+            self.player2.vel.x += self.player2.dir.x * c.MOVE_SPEED * 0.6
             self.player2.vel.y += self.player2.dir.y * c.MOVE_SPEED
 
         if pygame.key.get_pressed()[c.P2_S]:
@@ -88,14 +88,15 @@ class game():
             p.move()
 
         for b in self.bullet_list:
-            b.move()
+            b.move(self)
 
 
     def handle_draw(self):
         self.screen.fill((100,90,100))
 
-        self.player_list.draw(self.screen)
+
         self.bullet_list.draw(self.screen)
+        self.player_list.draw(self.screen)
 
         pygame.display.flip()
 

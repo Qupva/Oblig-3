@@ -31,6 +31,9 @@ class player1(pygame.sprite.Sprite):
 
         self.rotation = 0
 
+        self.health = 5
+        self.score = 0
+
         
     def move(self):
         vector = Vector2D.Vector2D(0, 0)
@@ -40,12 +43,9 @@ class player1(pygame.sprite.Sprite):
 
         self.vel += self.grav_dir * c.GRAVITY
 
-        if self.vel.magnitude() <= 0:
-            self.vel.x = 0
-            self.vel.y = 0
-        else:
-            self.vel.x -= self.vel.x / c.AIR_RESISTANCE
-            self.vel.y -= self.vel.y / c.AIR_RESISTANCE
+        
+        self.vel.x -= self.vel.x / c.AIR_RESISTANCE
+        self.vel.y -= self.vel.y / c.AIR_RESISTANCE
 
         vector = self.vel
 

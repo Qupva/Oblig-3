@@ -9,13 +9,13 @@ BULLET_FNAME = "img/bullet.png"
 SCREEN_X, SCREEN_Y = 1200, 720
 GAME_SCALE = SCREEN_X // 100
 
-GRAVITY = 0.9
-MOVE_SPEED = 2
-TURN_SPEED = 3
-MAX_SPEED = 20
-AIR_RESISTANCE = 50
+GRAVITY = 0.5
+MOVE_SPEED = 1.5
+TURN_SPEED = 2.5
+MAX_SPEED = 15
+AIR_RESISTANCE = 10
 
-FIRE_RATE = 0.5 # delay (in secounds) between shots
+FIRE_RATE = 0.2 # delay (in secounds) between shots
 BULLET_SPEED = 1
 
 PLAYER_SIZE = GAME_SCALE * 4
