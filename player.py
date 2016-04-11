@@ -31,8 +31,8 @@ class player1(pygame.sprite.Sprite):
 
         self.rotation = 0
 
-        self.health = 5
         self.score = 0
+        self.fuel = 500
 
         
     def move(self):

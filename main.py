@@ -16,6 +16,8 @@ class game():
 
         self.time = 1
 
+        self.myfont = pygame.font.SysFont("monospace", int(c.GAME_SCALE * 1.5))
+
         heart_img = pygame.image.load(c.HEART_FNAME).convert_alpha()
         p1_txt = pygame.image.load(c.P1_TXT).convert_alpha()
         p2_txt = pygame.image.load(c.P2_TXT).convert_alpha()
@@ -46,6 +48,16 @@ class game():
                 self.player_input()
                 self.handle_move()
 
+            string1s = ("Score: {}").format(self.player1.score)
+            string1f = ("Fuel: {}").format(self.player1.fuel)
+            self.label_p1s = self.myfont.render(string1s, 1, (255, 255, 255))
+            self.label_p1f = self.myfont.render(string1f, 1, (255, 255, 255))
+
+            string2s = ("score: {}").format(self.player2.score)
+            string2f = ("Fuel: {}").format(self.player2.fuel)
+            self.label_p2s = self.myfont.render(string2s, 1, (255, 255, 255))
+            self.label_p2f = self.myfont.render(string2f, 1, (255, 255, 255))
+
             self.handle_draw()
 
     def player_input(self):
@@ -58,8 +70,10 @@ class game():
             self.player1.rotation -= c.TURN_SPEED
 
         if pygame.key.get_pressed()[c.P1_D]:
-            self.player1.vel.x += self.player1.dir.x * c.MOVE_SPEED * 0.6
-            self.player1.vel.y += self.player1.dir.y * c.MOVE_SPEED
+            if self.player1.fuel > 0:
+                self.player1.vel.x += self.player1.dir.x * c.MOVE_SPEED * 0.6
+                self.player1.vel.y += self.player1.dir.y * c.MOVE_SPEED
+                self.player1.fuel -= c.FUEL_DRAIN
 
         if pygame.key.get_pressed()[c.P1_S]:
             if self.player1.bullet_timer >= c.FIRE_RATE:
@@ -76,8 +90,10 @@ class game():
             self.player2.rotation -= c.TURN_SPEED
 
         if pygame.key.get_pressed()[c.P2_D]:
-            self.player2.vel.x += self.player2.dir.x * c.MOVE_SPEED * 0.6
-            self.player2.vel.y += self.player2.dir.y * c.MOVE_SPEED
+            if self.player2.fuel > 0:
+                self.player2.vel.x += self.player2.dir.x * c.MOVE_SPEED * 0.6
+                self.player2.vel.y += self.player2.dir.y * c.MOVE_SPEED
+                self.player2.fuel -= c.FUEL_DRAIN
 
         if pygame.key.get_pressed()[c.P2_S]:
             if self.player2.bullet_timer >= c.FIRE_RATE:
@@ -99,13 +115,16 @@ class game():
             else:
                 self.time = 1
 
-        for player in self.player_list:
-            if pygame.sprite.spritecollideany(player, self.bullet_list):
-                obj = pygame.sprite.spritecollideany(player, self.bullet_list)
-                obj.on_hit()
-                player.health -= 1
-            if not player.health:
-                player.kill()
+        #for player in self.player_list:
+        if pygame.sprite.spritecollideany(self.player1, self.bullet_list):
+            obj = pygame.sprite.spritecollideany(self.player1, self.bullet_list)
+            obj.on_hit()
+            self.player2.score += 10
+
+        if pygame.sprite.spritecollideany(self.player2, self.bullet_list):
+            obj = pygame.sprite.spritecollideany(self.player2, self.bullet_list)
+            obj.on_hit()    
+            self.player1.score += 10            
 
 
     def handle_move(self):
@@ -126,22 +145,13 @@ class game():
 
 
         self.screen.blit(self.p1_text, (0, 5))
+        self.screen.blit(self.label_p1s, (0, (c.GAME_SCALE * 2) + 5))
+        self.screen.blit(self.label_p1f, (0, 2 * (c.GAME_SCALE * 2) + 5))
+
         self.screen.blit(self.p2_text, (int(c.SCREEN_X - c.GAME_SCALE * 10.5), 5))
+        self.screen.blit(self.label_p2s, (int(c.SCREEN_X - c.GAME_SCALE * 10.5), 5 + (c.GAME_SCALE * 2)))
+        self.screen.blit(self.label_p2f, (int(c.SCREEN_X - c.GAME_SCALE * 10.5), 5 + (c.GAME_SCALE * 2) * 2))
 
-        x, n = 0, 0
-
-        while n < self.player1.health:
-            self.screen.blit(self.heart_image, (x, c.GAME_SCALE * 3))
-            x += c.HEART_SIZE
-            n += 1
-
-        n = 0
-        x = c.SCREEN_X - c.GAME_SCALE * 5
-
-        while n < self.player2.health:
-            self.screen.blit(self.heart_image, (x, c.GAME_SCALE * 3))
-            x -= c.HEART_SIZE
-            n += 1
 
         pygame.display.flip()
 

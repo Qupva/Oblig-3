@@ -9,16 +9,18 @@ HEART_FNAME = "img/heart.png"
 P1_TXT = "img/player_1_text.png"
 P2_TXT = "img/player_2_text.png"
 
+""" Default screen res: 1200 x 720 """
 SCREEN_X, SCREEN_Y = 1200, 720
 BG_COLOR = 40,32,40
 GAME_SCALE = SCREEN_X // 100
 HEART_SIZE = GAME_SCALE * 3
 
-GRAVITY = 0.5
+GRAVITY = 0.7
 MOVE_SPEED = 1.5
 TURN_SPEED = 2.5
-MAX_SPEED = 15
-AIR_RESISTANCE = 10
+MAX_SPEED = 30
+AIR_RESISTANCE = 30
+FUEL_DRAIN = 1
 
 FIRE_RATE = 0.2 # delay (in secounds) between shots
 BULLET_SPEED = 1
