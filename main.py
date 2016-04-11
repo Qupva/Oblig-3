@@ -7,6 +7,7 @@ import config as c
 
 from player import *
 from weapons import *
+from objects import *
 
 
 class game():
@@ -28,12 +29,15 @@ class game():
 
         self.player_list = pygame.sprite.Group()
         self.bullet_list = pygame.sprite.Group()
+        self.asteroid_list = pygame.sprite.Group()
 
         self.player1 = player1(self, (c.GAME_SCALE * 2), (c.SCREEN_Y // 2))
         self.player2 = player2(self, (c.SCREEN_X - c.GAME_SCALE * 5), (c.SCREEN_Y // 2))
 
         self.player_list.add(self.player1)
         self.player_list.add(self.player2)
+
+        self.asteroid_list.add(asteroid())
 
     def run(self):
         self.clock = pygame.time.Clock()
@@ -115,7 +119,6 @@ class game():
             else:
                 self.time = 1
 
-        #for player in self.player_list:
         if pygame.sprite.spritecollideany(self.player1, self.bullet_list):
             obj = pygame.sprite.spritecollideany(self.player1, self.bullet_list)
             obj.on_hit()
@@ -142,6 +145,7 @@ class game():
 
         self.bullet_list.draw(self.screen)
         self.player_list.draw(self.screen)
+        self.asteroid_list.draw(self.screen)
 
 
         self.screen.blit(self.p1_text, (0, 5))
