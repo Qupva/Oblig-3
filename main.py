@@ -16,6 +16,14 @@ class game():
 
         self.time = 1
 
+        heart_img = pygame.image.load(c.HEART_FNAME).convert_alpha()
+        p1_txt = pygame.image.load(c.P1_TXT).convert_alpha()
+        p2_txt = pygame.image.load(c.P2_TXT).convert_alpha()
+
+        self.heart_image = pygame.transform.scale(heart_img, (c.HEART_SIZE, c.HEART_SIZE))
+        self.p1_text = pygame.transform.scale(p1_txt, (int(c.GAME_SCALE * 10.5), c.GAME_SCALE * 2))
+        self.p2_text = pygame.transform.scale(p2_txt, (int(c.GAME_SCALE * 10.5), c.GAME_SCALE * 2))
+
         self.player_list = pygame.sprite.Group()
         self.bullet_list = pygame.sprite.Group()
 
@@ -115,6 +123,25 @@ class game():
 
         self.bullet_list.draw(self.screen)
         self.player_list.draw(self.screen)
+
+
+        self.screen.blit(self.p1_text, (0, 5))
+        self.screen.blit(self.p2_text, (int(c.SCREEN_X - c.GAME_SCALE * 10.5), 5))
+
+        x, n = 0, 0
+
+        while n < self.player1.health:
+            self.screen.blit(self.heart_image, (x, c.GAME_SCALE * 3))
+            x += c.HEART_SIZE
+            n += 1
+
+        n = 0
+        x = c.SCREEN_X - c.GAME_SCALE * 5
+
+        while n < self.player2.health:
+            self.screen.blit(self.heart_image, (x, c.GAME_SCALE * 3))
+            x -= c.HEART_SIZE
+            n += 1
 
         pygame.display.flip()
 
