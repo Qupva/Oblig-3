@@ -28,10 +28,10 @@ class bullet(pygame.sprite.Sprite):
 
         self.pos = Vector2D.Vector2D(player.pos.x, player.pos.y)
 
-        start_pos = Vector2D.Vector2D((player.rect.x + player.width // 2), (player.rect.y + player.height // 2))
+        start_pos = Vector2D.Vector2D((player.rect.centerx), (player.rect.centery))
 
-        start_pos.x += player.height * self.dir.x
-        start_pos.y += player.height * self.dir.y
+        start_pos.x += (player.height + c.GAME_SCALE) * self.dir.x
+        start_pos.y += (player.height + c.GAME_SCALE) * self.dir.y
 
         self.rect = self.img.get_rect()
         self.rect = self.rect.move(start_pos.x, start_pos.y)

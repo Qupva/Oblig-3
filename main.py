@@ -16,8 +16,9 @@ class game():
         self.screen = pygame.display.set_mode((c.SCREEN_X, c.SCREEN_Y))
 
         self.time = 1
+        self.timer1 = 0
 
-        self.myfont = pygame.font.SysFont("monospace", int(c.GAME_SCALE * 1.5))
+        self.myfont = pygame.font.SysFont("monospace", int(c.GAME_SCALE * 1.5), 1, 0)
 
         heart_img = pygame.image.load(c.HEART_FNAME).convert_alpha()
         p1_txt = pygame.image.load(c.P1_TXT).convert_alpha()
@@ -37,7 +38,15 @@ class game():
         self.player_list.add(self.player1)
         self.player_list.add(self.player2)
 
-        self.asteroid_list.add(asteroid())
+        self.asteroid = asteroid(c.SCREEN_X // 2, c.SCREEN_Y // 2, c.GAME_SCALE * 2, c.GAME_SCALE * 5)
+        self.asteroid_list.add(self.asteroid)
+
+        self.platform1 = platform(self, (c.GAME_SCALE * 2), (c.SCREEN_Y // 2) + c.PLAYER_SIZE)
+        self.platform2 = platform(self, (c.SCREEN_X - c.GAME_SCALE * 5), (c.SCREEN_Y // 2) + c.PLAYER_SIZE)
+
+        self.asteroid_list.add(self.platform1)
+        self.asteroid_list.add(self.platform2)
+
 
     def run(self):
         self.clock = pygame.time.Clock()
@@ -52,13 +61,13 @@ class game():
                 self.player_input()
                 self.handle_move()
 
-            string1s = ("Score: {}").format(self.player1.score)
-            string1f = ("Fuel: {}").format(self.player1.fuel)
+            string1s = ("Score: {}").format(int(self.player1.score))
+            string1f = ("Fuel: {}").format(int(self.player1.fuel))
             self.label_p1s = self.myfont.render(string1s, 1, (255, 255, 255))
             self.label_p1f = self.myfont.render(string1f, 1, (255, 255, 255))
 
-            string2s = ("score: {}").format(self.player2.score)
-            string2f = ("Fuel: {}").format(self.player2.fuel)
+            string2s = ("score: {}").format(int(self.player2.score))
+            string2f = ("Fuel: {}").format(int(self.player2.fuel))
             self.label_p2s = self.myfont.render(string2s, 1, (255, 255, 255))
             self.label_p2f = self.myfont.render(string2f, 1, (255, 255, 255))
 
@@ -68,16 +77,16 @@ class game():
     
         """ Player 1 input """
         if pygame.key.get_pressed()[c.P1_L]:
-            self.player1.rotation += c.TURN_SPEED
+            self.player1.rotation += c.TURN_SPEED * self.time_passed_seconds
 
         if pygame.key.get_pressed()[c.P1_R]:
-            self.player1.rotation -= c.TURN_SPEED
+            self.player1.rotation -= c.TURN_SPEED * self.time_passed_seconds
 
         if pygame.key.get_pressed()[c.P1_D]:
             if self.player1.fuel > 0:
-                self.player1.vel.x += self.player1.dir.x * c.MOVE_SPEED * 0.6
-                self.player1.vel.y += self.player1.dir.y * c.MOVE_SPEED
-                self.player1.fuel -= c.FUEL_DRAIN
+                self.player1.vel.x += self.player1.dir.x * c.MOVE_SPEED * 0.6 * self.time_passed_seconds
+                self.player1.vel.y += self.player1.dir.y * c.MOVE_SPEED * self.time_passed_seconds
+                self.player1.fuel -= c.FUEL_DRAIN * self.time_passed_seconds
 
         if pygame.key.get_pressed()[c.P1_S]:
             if self.player1.bullet_timer >= c.FIRE_RATE:
@@ -88,16 +97,16 @@ class game():
 
         """ Player 2 input """
         if pygame.key.get_pressed()[c.P2_L]:
-            self.player2.rotation += c.TURN_SPEED
+            self.player2.rotation += c.TURN_SPEED * self.time_passed_seconds
 
         if pygame.key.get_pressed()[c.P2_R]:
-            self.player2.rotation -= c.TURN_SPEED
+            self.player2.rotation -= c.TURN_SPEED * self.time_passed_seconds
 
         if pygame.key.get_pressed()[c.P2_D]:
             if self.player2.fuel > 0:
-                self.player2.vel.x += self.player2.dir.x * c.MOVE_SPEED * 0.6
-                self.player2.vel.y += self.player2.dir.y * c.MOVE_SPEED
-                self.player2.fuel -= c.FUEL_DRAIN
+                self.player2.vel.x += self.player2.dir.x * c.MOVE_SPEED * 0.6 * self.time_passed_seconds
+                self.player2.vel.y += self.player2.dir.y * c.MOVE_SPEED * self.time_passed_seconds
+                self.player2.fuel -= c.FUEL_DRAIN * self.time_passed_seconds
 
         if pygame.key.get_pressed()[c.P2_S]:
             if self.player2.bullet_timer >= c.FIRE_RATE:
@@ -129,14 +138,41 @@ class game():
             obj.on_hit()    
             self.player1.score += 10            
 
+        if pygame.sprite.spritecollideany(self.asteroid, self.bullet_list):
+            obj = pygame.sprite.spritecollideany(self.asteroid, self.bullet_list)
+            obj.on_hit() 
+
+        
+
 
     def handle_move(self):
 
         for p in self.player_list:
-            p.move()
+            p.move(self)
 
         for b in self.bullet_list:
             b.move(self)
+
+        for player in self.player_list:  
+                
+            if pygame.sprite.collide_rect(player, self.asteroid):
+                if self.timer1 <= 0:
+                    player.score -= 3
+                    self.timer1 += 0.1
+                else:
+                    self.timer1 -= self.time_passed_seconds
+                player.vel = player.vel * -1
+                player.rect = player.rect.move(0, -1)
+
+
+            if pygame.sprite.collide_rect(player, self.platform1) or pygame.sprite.collide_rect(player, self.platform2):
+                if player.fuel < c.MAX_FUEL:
+                    player.fuel += c.FUEL_REFILL
+                else:
+                    player.fuel = c.MAX_FUEL
+
+                player.vel = player.vel * -0.8
+                player.rect = player.rect.move(0, -1)
 
 
     def handle_draw(self):
