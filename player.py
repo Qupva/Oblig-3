@@ -8,6 +8,7 @@ from weapons import *
 
 
 class player(pygame.sprite.Sprite):
+    """  """
     def __init__(self, game, x, y):
         super().__init__()
 
@@ -34,6 +35,8 @@ class player(pygame.sprite.Sprite):
 
         
     def move(self, game):
+        """  """
+
         vector = Vector2D.Vector2D(0, 0)
 
         self.rotation = self.rotation % 360
@@ -70,6 +73,7 @@ class player(pygame.sprite.Sprite):
 
 
 class player1(player):
+    """  """
     def __init__(self, game, x, y):
 
         self.tmp_img = pygame.image.load(c.P1_FNAME).convert_alpha()
@@ -77,6 +81,7 @@ class player1(player):
 
 
 class player2(player):
+    """  """
     def __init__(self, game, x, y):
 
         self.tmp_img = pygame.image.load(c.P2_FNAME).convert_alpha()

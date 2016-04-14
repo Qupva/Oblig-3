@@ -7,6 +7,7 @@ from main import *
 from weapons import *
 
 class asteroid(pygame.sprite.Sprite):
+    """  """
     def __init__(self, x, y, width, height):
         super().__init__()
 
@@ -17,6 +18,7 @@ class asteroid(pygame.sprite.Sprite):
 
 
 class platform(asteroid):
+    """  """
     def __init__(self, game, x, y):
         self.width = c.GAME_SCALE * 4
         self.height = c.GAME_SCALE * 1
