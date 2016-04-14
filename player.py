@@ -8,7 +8,7 @@ from weapons import *
 
 
 class player(pygame.sprite.Sprite):
-    """  """
+    """ Player class gives player objects life, but no image """
     def __init__(self, game, x, y):
         super().__init__()
 
@@ -35,7 +35,7 @@ class player(pygame.sprite.Sprite):
 
         
     def move(self, game):
-        """  """
+        """ Handles player movement """
 
         vector = Vector2D.Vector2D(0, 0)
 
@@ -73,7 +73,7 @@ class player(pygame.sprite.Sprite):
 
 
 class player1(player):
-    """  """
+    """ Gives player 1 a different image from other players """
     def __init__(self, game, x, y):
 
         self.tmp_img = pygame.image.load(c.P1_FNAME).convert_alpha()
@@ -81,7 +81,7 @@ class player1(player):
 
 
 class player2(player):
-    """  """
+    """ Gives player 2 a different image from other players """
     def __init__(self, game, x, y):
 
         self.tmp_img = pygame.image.load(c.P2_FNAME).convert_alpha()

@@ -42,7 +42,7 @@ class bullet(pygame.sprite.Sprite):
         self.rect = self.rect.move(start_pos.x, start_pos.y)
 
     def move(self, game):
-        """ Module handles how the bullet moves """
+        """ Handles how the bullet moves """
 
         self.timer -= game.time_passed_seconds
         self.pos += self.dir * c.BULLET_SPEED
@@ -59,6 +59,6 @@ class bullet(pygame.sprite.Sprite):
 
 
     def on_hit(self):
-        """ Module handles what happenes when bullet hits something """
+        """ Handles what happenes when bullet hits something """
 
         self.kill()
