@@ -13,7 +13,7 @@ P2_TXT = "img/player_2_text.png"
 
 """ Default screen res: 1200 x 720 """
 SCREEN_X, SCREEN_Y = 1200, 720
-BG_COLOR = 40,32,40
+BG_COLOR = 0,0,0
 GAME_SCALE = SCREEN_X // 100
 HEART_SIZE = GAME_SCALE * 3
 

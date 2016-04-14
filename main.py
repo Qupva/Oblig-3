@@ -11,6 +11,7 @@ from objects import *
 
 
 class game():
+    """ The class that makes the game run """
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((c.SCREEN_X, c.SCREEN_Y))
@@ -49,6 +50,7 @@ class game():
 
 
     def run(self):
+        """  """
         self.clock = pygame.time.Clock()
         
         while True:
@@ -74,8 +76,9 @@ class game():
             self.handle_draw()
 
     def player_input(self):
+        """  """
     
-        """ Player 1 input """
+        # Player 1 input
         if pygame.key.get_pressed()[c.P1_L]:
             self.player1.rotation += c.TURN_SPEED * self.time_passed_seconds
 
@@ -95,7 +98,7 @@ class game():
             else:
                 self.player1.bullet_timer += self.time_passed_seconds
 
-        """ Player 2 input """
+        # Player 2 input
         if pygame.key.get_pressed()[c.P2_L]:
             self.player2.rotation += c.TURN_SPEED * self.time_passed_seconds
 
@@ -117,6 +120,8 @@ class game():
 
 
     def handle_event(self):
+        """  """
+
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
@@ -146,6 +151,7 @@ class game():
 
 
     def handle_move(self):
+        """  """
 
         for p in self.player_list:
             p.move(self)
@@ -176,6 +182,8 @@ class game():
 
 
     def handle_draw(self):
+        """  """
+
         self.screen.fill((c.BG_COLOR))
 
 
@@ -184,9 +192,9 @@ class game():
         self.asteroid_list.draw(self.screen)
 
 
-        self.screen.blit(self.p1_text, (0, 5))
-        self.screen.blit(self.label_p1s, (0, (c.GAME_SCALE * 2) + 5))
-        self.screen.blit(self.label_p1f, (0, 2 * (c.GAME_SCALE * 2) + 5))
+        self.screen.blit(self.p1_text, (5, 5))
+        self.screen.blit(self.label_p1s, (5, (c.GAME_SCALE * 2) + 5))
+        self.screen.blit(self.label_p1f, (5, 2 * (c.GAME_SCALE * 2) + 5))
 
         self.screen.blit(self.p2_text, (int(c.SCREEN_X - c.GAME_SCALE * 10.5), 5))
         self.screen.blit(self.label_p2s, (int(c.SCREEN_X - c.GAME_SCALE * 10.5), 5 + (c.GAME_SCALE * 2)))

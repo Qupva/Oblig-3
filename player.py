@@ -7,16 +7,14 @@ from main import *
 from weapons import *
 
 
-class player1(pygame.sprite.Sprite):
+class player(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
         super().__init__()
 
         self.width = c.PLAYER_SIZE
         self.height = c.PLAYER_SIZE
 
-        tmp_img = pygame.image.load(c.P1_FNAME).convert_alpha()
-
-        self.img = pygame.transform.scale(tmp_img, (self.width, self.height))
+        self.img = pygame.transform.scale(self.tmp_img, (self.width, self.height))
 
         self.pos = Vector2D.Vector2D(x, y)
         self.dir = Vector2D.Vector2D(0, -1).normalized()
@@ -56,9 +54,6 @@ class player1(pygame.sprite.Sprite):
 
         self.rect = self.rect.move(self.pos.x, self.pos.y)
 
-        #self.rect.x = self.rect.x % c.SCREEN_X
-        #self.rect.y = self.rect.y % c.SCREEN_Y
-
         if self.rect.y + self.rect.height > c.SCREEN_Y:
             self.vel = self.vel * -1
             self.rect = self.rect.move(0, -1)
@@ -74,11 +69,15 @@ class player1(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center = self.rect.center)
 
 
-
-class player2(player1):
+class player1(player):
     def __init__(self, game, x, y):
 
+        self.tmp_img = pygame.image.load(c.P1_FNAME).convert_alpha()
         super().__init__(game, x, y)
 
-        tmp_img = pygame.image.load(c.P2_FNAME).convert_alpha()
-        self.img = pygame.transform.scale(tmp_img, (self.width, self.height))
+
+class player2(player):
+    def __init__(self, game, x, y):
+
+        self.tmp_img = pygame.image.load(c.P2_FNAME).convert_alpha()
+        super().__init__(game, x, y)
