@@ -1,3 +1,4 @@
+""" Module contains weapon systems """
 
 import pygame
 import Vector2D
@@ -8,16 +9,16 @@ from player import *
 
 
 class weapon(pygame.sprite.Sprite):
-    """  """
+    """ Class that fires bullets """
     def fire(self, game, player):
-        """  """
+        """ Metod that fires bullets and ads them to the bullet-list """
 
         self.bullet = bullet(player)
         game.bullet_list.add(self.bullet)
 
 
 class bullet(pygame.sprite.Sprite):
-    """  """
+    """ Bullet class """
     def __init__(self, player):
         super().__init__()
         
@@ -41,7 +42,7 @@ class bullet(pygame.sprite.Sprite):
         self.rect = self.rect.move(start_pos.x, start_pos.y)
 
     def move(self, game):
-        """  """
+        """ Module handles how the bullet moves """
 
         self.timer -= game.time_passed_seconds
         self.pos += self.dir * c.BULLET_SPEED
@@ -58,6 +59,6 @@ class bullet(pygame.sprite.Sprite):
 
 
     def on_hit(self):
-        """  """
+        """ Module handles what happenes when bullet hits something """
 
         self.kill()
