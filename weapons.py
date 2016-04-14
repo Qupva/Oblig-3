@@ -31,7 +31,7 @@ class bullet(pygame.sprite.Sprite):
         self.dir = Vector2D.Vector2D(0,0).convert(self.rotation)
         self.image = pygame.transform.rotate(self.img, self.rotation)
 
-        self.pos = Vector2D.Vector2D(player.pos.x, player.pos.y)
+        self.pos = Vector2D.Vector2D(player.vel.x, player.vel.y)
 
         start_pos = Vector2D.Vector2D((player.rect.centerx), (player.rect.centery))
 

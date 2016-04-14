@@ -5,7 +5,6 @@ from main import *
 P1_FNAME = "img/p1.png"
 P2_FNAME = "img/p2.png"
 BULLET_FNAME = "img/bullet.png"
-HEART_FNAME = "img/heart.png"
 ASTEROID_FNAME = "img/asteroid.png"
 P1_TXT = "img/player_1_text.png"
 P2_TXT = "img/player_2_text.png"

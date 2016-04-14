@@ -7,6 +7,9 @@ import Vector2D
 import LocalClient
 import config as c
 
+import cProfile
+import pstats
+
 from player import *
 from weapons import *
 from objects import *
@@ -23,11 +26,9 @@ class game():
 
         self.myfont = pygame.font.SysFont("monospace", int(c.GAME_SCALE * 1.5), 1, 0)
 
-        heart_img = pygame.image.load(c.HEART_FNAME).convert_alpha()
         p1_txt = pygame.image.load(c.P1_TXT).convert_alpha()
         p2_txt = pygame.image.load(c.P2_TXT).convert_alpha()
 
-        self.heart_image = pygame.transform.scale(heart_img, (c.HEART_SIZE, c.HEART_SIZE))
         self.p1_text = pygame.transform.scale(p1_txt, (int(c.GAME_SCALE * 10.5), c.GAME_SCALE * 2))
         self.p2_text = pygame.transform.scale(p2_txt, (int(c.GAME_SCALE * 10.5), c.GAME_SCALE * 2))
 
@@ -208,4 +209,8 @@ class game():
 
 if __name__ == '__main__':
     spill = game()
-    spill.run()
+    cProfile.run("spill.run()", "test")
+    p = pstats.Stats("test")
+    p.sort_stats("ncalls").print_stats(15)
+    p.sort_stats("tottime").print_stats(15)
+    p.sort_stats("cumulative").print_stats(15)

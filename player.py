@@ -17,12 +17,11 @@ class player(pygame.sprite.Sprite):
 
         self.img = pygame.transform.scale(self.tmp_img, (self.width, self.height))
 
-        self.pos = Vector2D.Vector2D(x, y)
         self.dir = Vector2D.Vector2D(0, -1).normalized()
         self.vel = Vector2D.Vector2D(0, 0)
         self.grav_dir = Vector2D.Vector2D(0, 1).normalized()
         self.rect = self.img.get_rect()
-        self.rect = self.rect.move(self.pos.x, self.pos.y)
+        self.rect = self.rect.move(x, y)
 
         self.bullet_timer = c.FIRE_RATE
 
@@ -37,8 +36,6 @@ class player(pygame.sprite.Sprite):
     def move(self, game):
         """ Handles player movement """
 
-        vector = Vector2D.Vector2D(0, 0)
-
         self.rotation = self.rotation % 360
         self.dir = self.dir.convert(self.rotation)
 
@@ -48,14 +45,10 @@ class player(pygame.sprite.Sprite):
         self.vel.x -= self.vel.x / c.AIR_RESISTANCE
         self.vel.y -= self.vel.y / c.AIR_RESISTANCE
 
-        vector = self.vel
+        if self.vel.magnitude() > c.MAX_SPEED:
+            self.vel = self.vel.normalized() * c.MAX_SPEED
 
-        if vector.magnitude() > c.MAX_SPEED:
-            vector = vector.normalized() * c.MAX_SPEED
-
-        self.pos = vector
-
-        self.rect = self.rect.move(self.pos.x, self.pos.y)
+        self.rect = self.rect.move(self.vel.x, self.vel.y)
 
         if self.rect.y + self.rect.height > c.SCREEN_Y:
             self.vel = self.vel * -1
