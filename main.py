@@ -1,5 +1,7 @@
 #! /usr/env/bin python3
 
+""" Module contains the min game class that runs everything """
+
 import pygame
 import Vector2D
 import LocalClient
@@ -50,7 +52,7 @@ class game():
 
 
     def run(self):
-        """  """
+        """ Runs a while-loop that makes the game run """
         self.clock = pygame.time.Clock()
         
         while True:
@@ -75,8 +77,9 @@ class game():
 
             self.handle_draw()
 
+
     def player_input(self):
-        """  """
+        """ Handles input from players """
     
         # Player 1 input
         if pygame.key.get_pressed()[c.P1_L]:
@@ -120,7 +123,7 @@ class game():
 
 
     def handle_event(self):
-        """  """
+        """ Handles bullet collitions and game exit """
 
         events = pygame.event.get()
         for event in events:
@@ -148,10 +151,8 @@ class game():
             obj.on_hit() 
 
         
-
-
     def handle_move(self):
-        """  """
+        """ Handles methods that makes game objects move and collide with static objects """
 
         for p in self.player_list:
             p.move(self)
@@ -182,7 +183,7 @@ class game():
 
 
     def handle_draw(self):
-        """  """
+        """ Handles everything that needs to be drawn """
 
         self.screen.fill((c.BG_COLOR))
 
