@@ -1,4 +1,4 @@
-
+""" Module contains players and player logic """
 import pygame
 import Vector2D
 import config as c
